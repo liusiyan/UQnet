@@ -24,7 +24,6 @@ We are working on more detailed descriptions.
 ## References
 
 [1] Siyan Liu, Pei Zhang, Dan Lu, and Guannan Zhang. "PI3NN: Prediction intervals from three independently trained neural networks." arXiv preprint arXiv:2108.02327 (2021). https://arxiv.org/abs/2108.02327
-The associated example code for this paper can be found in './PI3NN/examples/arxiv_paper_example/'
 
 [2] Pei Zhang, Siyan Liu, Dan Lu, Guannan Zhang, and Ramanan Sankaran. "A prediction interval method for uncertainty quantification of regression models". ICLR 2021 SimDL Workshop. https://simdl.github.io/files/52.pdf
 

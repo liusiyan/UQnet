@@ -1,0 +1,1 @@
+checkpoints for 'DOWN' network weights 

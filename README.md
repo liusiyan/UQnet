@@ -7,29 +7,26 @@ To run the code, make sure these packages are installed in addition to the commo
 The detailed environment configurations can be found in the 'environment.yml' file.
 
 ### Download the data sets
-Due to the supplemental material size limit, we prepared the download URL for obtain the UCI data sets and our pre-split of the UCI data sets.
-
-There are three approaches to get the data:
-
---- (1) Simply run the scirpt sh download_data.sh in the root folder ('./PI3NN_Supplemental_Material/') to download and unzip the data
+The UCI and pre-split UCI data sets can be obtained by:
+--- (1) Simply run the scirpt sh download_data.sh in the datasets folder ('./PI3NN/datasets') to download and unzip the data
 --- (2) Manual download the zipped data through the links below:
 ----- (2.1) UCI datasets:            https://figshare.com/s/53cdf79be5ba5d216ba8
 ----- (2.2) Pre-split UCI datasets:  https://figshare.com/s/e470b7131b55df1b074e
------ (2.3) Unzip the two files and place them in the root folder './PI3NN_Supplemental_Material/'
---- (3) Have the UCI data sets in hand (should be in UCI\_datasets folder, either prepared yourself or download through using the link from (2.1)), and run the 'UCI\_data\_splitting.py
+----- (2.3) Unzip the two files and place them in the datasets folder './PI3NN/datasets'
+
+### User input data sets can be loaded by using user customized code integrated in the 'main_PI3NN.py' 
+
 
 ### Run the code
-The following folders contain the code and pre-generated data to reproduce the results:
---- (1) Figure_1: tests on cubic function from PI3NN, DER and QD method.
---- (2) Figure_2: tests on sensitivity of hyper-parameters for QD method.
---- (3) Figure_3: OOD identification comparison between PI3NN, QD and DER method.
---- (4) Table_1: performance evaluation of the PI3NN, QD and DER method.
+python main_PI3NN.py 
+We are working on more detailed descriptions.
 
-You can find detailed instructions (README files) on running the code and reproduce the plots within those folders, some of them are also available in the form of comments within the code.
+## References
 
+[1] Siyan Liu, Pei Zhang, Dan Lu, and Guannan Zhang. "PI3NN: Prediction intervals from three independently trained neural networks." arXiv preprint arXiv:2108.02327 (2021). https://arxiv.org/abs/2108.02327
+The associated example code for this paper can be found in './PI3NN/examples/arxiv_paper_example/'
 
-For the results in the Appendix:
---- The code for generating the MPIW, RMSE sensitivity analysis for QD method is in ./Figure\_2/QD\_sensitivity\_tests/
+[2] Pei Zhang, Siyan Liu, Dan Lu, Guannan Zhang, and Ramanan Sankaran. "A prediction interval method for uncertainty quantification of regression models". ICLR 2021 SimDL Workshop. https://simdl.github.io/files/52.pdf
 
 
 Have fun!

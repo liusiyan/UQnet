@@ -34,33 +34,29 @@ PI3NN method for regression problems
 configs = {'data_name':'yacht',    
            'original_data_path': '/datasets/UCI_datasets/',
            'splitted_data_path': '/datasets/UCI_TrainTest_Split/',
-           'split_seed': 1,   # random seed for splitting train/test data
-           'split_test_ratio': 0.1,  # ratio of the testing data during random split []
-           'seed': 10,
-           'num_neurons_mean_net': 100,
-           'num_neurons_up_down_net': 100,
-           'quantile': 0.95,     # target percentile for optimization step# target percentile for optimization step
+           'split_seed': 1,                 # random seed for splitting train/test data
+           'split_test_ratio': 0.1,         # ratio of the testing data during random split
+           'seed': 10,                      # general random seed
+           'num_neurons_mean_net': 100,     # number of neurons in hidden layer for the 'MEAN' network
+           'num_neurons_up_down_net': 100,  # number of neurons in hidden layer for the 'UP'and 'DOWN' network
+           'quantile': 0.95,                # target percentile for optimization step# target percentile for optimization step
            'Max_iter': 5000,
-           'lr': [0.1, 0.1, 0.1],
+           'lr': [0.1, 0.1, 0.1],           # learning rate
            'optimizers': ['Adam', 'Adam', 'Adam'],
            'learning_decay': True,
            'exponential_decay': True,
            'decay_steps': 3000,
            'decay_rate': 0.8,
-
            'saveWeights': True,
            'loadWeights_test': False,
-
            'early_stop': True,
            'early_stop_start_iter': 500,
            'wait_patience': 300,
            'restore_best_weights': True,
-
            'save_loss_history': True,
            'save_loss_history_path': './Results_PI3NN/loss_history/',
            'plot_loss_history' : True,
            'plot_loss_history_path':'./Results_PI3NN/loss_curves/',
-
            'verbose': 1,
            'experiment_id': 9
           }

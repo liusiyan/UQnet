@@ -10,12 +10,12 @@ To run the code, make sure these packages are installed in addition to the commo
 The detailed environment configurations can be found in the 'environment.yml' file.
 
 ### Download the data sets
-The default example used in our experiments are based on UCI and pre-split UCI data sets, which can be obtained by:
-(1) Simply run the scirpt sh download_data.sh in the datasets folder ('./PI3NN/datasets') to download and unzip the data
-(2) Manual download the zipped data through the links below:
-(2.1) UCI datasets:            https://figshare.com/s/53cdf79be5ba5d216ba8
-(2.2) Pre-split UCI datasets:  https://figshare.com/s/e470b7131b55df1b074e
-(2.3) Unzip the two files and place them in the datasets folder './PI3NN/datasets'
+The default example used in our experiments are based on UCI and pre-split UCI data sets, which can be obtained by:\
+(1) Simply run the scirpt sh download_data.sh in the datasets folder ('./PI3NN/datasets') to download and unzip the data \
+(2) Manual download the zipped data through the links below: \
+(2.1) UCI datasets:            https://figshare.com/s/53cdf79be5ba5d216ba8 \
+(2.2) Pre-split UCI datasets:  https://figshare.com/s/e470b7131b55df1b074e \
+(2.3) Unzip the two files and place them in the datasets folder './PI3NN/datasets' \
 
 ### User input data sets can be loaded by using user customized code integrated in the 'main_PI3NN.py' 
 

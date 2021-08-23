@@ -1,1 +1,0 @@
-checkpoints for 'UP' network weights 

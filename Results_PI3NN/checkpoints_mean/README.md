@@ -1,1 +1,0 @@
-checkpoints for 'MEAN' network weights 

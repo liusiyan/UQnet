@@ -15,17 +15,17 @@ Top panels of figure below illustrate the four steps of the PI3NN algorithm. Aft
 
 <p align="left">
 Top panels illustrate the four steps of our PI3NN algorithm. Bottom panels illustrate the effectiveness of the OOD identification feature. As shown in bottom left, when turning on the OOD identification feature by initializing the bias of the output layer of <img src="https://render.githubusercontent.com/render/math?math=u_\theta"> and <img src="https://render.githubusercontent.com/render/math?math=l_\xi"> to a large value, PI3NN can accurately identify the OOD regions <img src="https://render.githubusercontent.com/render/math?math=[-7,-4]\cup[4,7]">  by giving them increasingly large PIs as their distance from the training data gets large.In bottom right, if we turn off the OOD identification by using the default initialization, PI3NN will not identify the OOD regions by giving them a narrow uncertainty bound.
-</p>
+</p><br/>
 
-<br/>
+
 ### Prerequisite
 To run the code, make sure these packages are installed in addition to the commonly used Numpy, Pandas, Matplotlib, sklearn, etc. <br/>
 --- python (>=3.8, version 3.8.3 is used in this study) <br/>
 --- TensorFlow (>=2.0, version 2.4.1 is used in this study) <br/>
---- Hyperopt (=0.2.5, used for hyper-parameters tuning) <br/>
+--- Hyperopt (=0.2.5, used for hyper-parameters tuning) <br/><br/>
 
 
-<br/>
+
 ### Run the code
 The examples are based on the six UCI datasets (BostonHousing, Concrete, energy-efficiency, kin8nm, wine-quality, yacht). We used sklearn to conduct 90%/10% train/test split, and further obtained 10% of the validation data from those 90% of training data. The target quantile is set to 0.95. After networks training and predicted intervals optimization, the Prediction Interval Coverage Probability (PICP) and the Mean Prediction Interval Width (MPIW) for train, validation and test data will be calculated to estimate the quality of PIs. In addtion, the MSE, RMSE and R2 will be evaluated for the testing data.
 
@@ -68,11 +68,11 @@ Multiple PIs can be obtained based on multiple input quantiles without re-train 
 ```python
 configs['quantile_list] = np.arange(0.05, 1.00, 0.05) # 0.05-0.95
 ```
-after the data loading section in the 'main_PI3NN.py' file. Simply comment out this line in order to run single quantile estimation. Multiple PIs prediction works for manual mode only at this point. 
+after the data loading section in the 'main_PI3NN.py' file. Simply comment out this line in order to run single quantile estimation. Multiple PIs prediction works for manual mode only at this point. <br/><br/>
 
 
 
-<br/>
+
 ## References
 
 [1] Siyan Liu, Pei Zhang, Dan Lu, and Guannan Zhang. "PI3NN: Out-of-distribution-aware prediction intervals from three neural networks." arXiv preprint arXiv:2108.02327 (2021). https://arxiv.org/abs/2108.02327

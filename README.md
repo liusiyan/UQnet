@@ -16,10 +16,10 @@ the OOD regions by giving them a narrow uncertainty bound.
 
 
 ### Prerequisite
-To run the code, make sure these packages are installed in addition to the commonly used Numpy, Pandas, Matplotlib, sklearn, etc. 
---- python (>=3.8, version 3.8.3 is used in this study)
---- TensorFlow (>=2.0, version 2.4.1 is used in this study)
---- Hyperopt (=0.2.5, used for hyper-parameters tuning)
+To run the code, make sure these packages are installed in addition to the commonly used Numpy, Pandas, Matplotlib, sklearn, etc. <br/>
+--- python (>=3.8, version 3.8.3 is used in this study) <br/>
+--- TensorFlow (>=2.0, version 2.4.1 is used in this study) <br/>
+--- Hyperopt (=0.2.5, used for hyper-parameters tuning) <br/>
 
 
 

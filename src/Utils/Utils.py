@@ -4,8 +4,8 @@ import numpy as np
 
 class CL_Utils:
 
-	def __init__():
-		pass
+    def __init__(self):
+        pass
 
     def standardizer(self, input_np):
         input_mean = input_np.mean(axis=0, keepdims=1)
@@ -13,6 +13,14 @@ class CL_Utils:
         input_std[input_std < 1e-10] = 1.0
         standardized_input = (input_np - input_mean) / input_std
         return standardized_input, input_mean, input_std
+
+
+    def getNumInputsOutputs(self, inputsOutputs_np):
+        if len(inputsOutputs_np.shape) == 1:
+            numInputsOutputs = 1
+        if len(inputsOutputs_np.shape) > 1:
+            numInputsOutputs = inputsOutputs_np.shape[1]
+        return numInputsOutputs
 
 
 
@@ -75,3 +83,4 @@ class CL_EarlyStopping:
         else:
             self.best = np.Inf if self.monitor_op == np.less else -np.Inf
         self.best_weights = None
+

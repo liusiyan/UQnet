@@ -1,117 +1,72 @@
 ### PI3NN
-We utilize a novel prediction interval method to learn the prediction mean values, upper and lower bounds of the prediction intervals from three independently trained neural networks using only standard mean squared error (MSE) loss, for uncertainty quantification in regression tasks. Our method does not contain unusual hyperparameters either in the neural networks or in the loss function. The distributional assumption on data is not required. In addtion, out method can effectively identify out-of-distribution samples and reasonably quantify their uncertainty.
+We propose a novel prediction interval method to learn the prediction mean values, upper and lower bounds of the prediction intervals from three independently trained neural networks using only standard mean squared error (MSE) loss, for uncertainty quantification in regression tasks. We aim to address three major issues with the state-of-the-art PI methods. First, existing PI methods require retraining of neural networks (NNs) for every given confidence level and suffer from the crossing issue in calculating multiple PIs. Second, they usually rely on customized loss functions with extra sensitive hyperparameters for which fine tuning is required to achieve a well-calibrated PI. Third, they usually underestimate uncertainties of out-of-distribution (OOD) samples leading to over-confident PIs. Our PI3NN method calculates PIs from linear combinations of three NNs, each of which is independently trained using the standard mean squared error loss. The coefficients of the linear combinations are computed using root-finding algorithms to ensure tight PIs for a given confidence level. We theoretically prove that PI3NN can calculate PIs for a series of confidence levels without retraining NNs and it completely avoids the crossing issue. Additionally, PI3NN does not introduce any unusual hyperparameters resulting in a stable performance. Furthermore, we address OOD identification challenge by introducing an initialization scheme which provides reasonably larger PIs of the OOD samples than those of the in-distribution samples. Benchmark and real-world experiments show that our method outperforms several state-of-the-art approaches with respect
+to predictive uncertainty quality, robustness, and OOD samples identification.
+
+
+<p align="center"><img src="docs/images/PI3NN_main_illustration.png" width=800 /></p>
+
+<p align="center">
+Top panels illustrate the four steps of our PI3NN algorithm. Bottom panels illustrate the effectiveness
+of the OOD identification feature. As shown in bottom left, when turning on the OOD identification feature by
+initializing the bias of the output layer of uθ and lξ to a large value, PI3NN can accurately identify the OOD
+regions [−7, −4] ∪ [4, 7] by giving them increasingly large PIs as their distance from the training data gets large.
+In bottom right, if we turn off the OOD identification by using the default initialization, PI3NN will not identify
+the OOD regions by giving them a narrow uncertainty bound.
+</p>
+
 
 ### Prerequisite
 To run the code, make sure these packages are installed in addition to the commonly used Numpy, Pandas, Matplotlib, sklearn, etc. 
 --- python (>=3.8, version 3.8.3 is used in this study)
 --- TensorFlow (>=2.0, version 2.4.1 is used in this study)
---- PyTorch (>=1.7, version 1.7.1 is used in this study)
+--- Hyperopt (=0.2.5, used for hyper-parameters tuning)
 
-The detailed environment configurations can be found in the 'environment.yml' file.
-
-### Download the data sets
-The default example used in our experiments are based on UCI and pre-split UCI data sets, which can be obtained by:\
-(1) Simply run the scirpt sh download_data.sh in the datasets folder ('./PI3NN/datasets') to download and unzip the data \
-(2) Manual download the zipped data through the links below: \
-(2.1) UCI datasets:            https://figshare.com/s/53cdf79be5ba5d216ba8 \
-(2.2) Pre-split UCI datasets:  https://figshare.com/s/e470b7131b55df1b074e \
-(2.3) Unzip the two files and place them in the datasets folder './PI3NN/datasets' \
-
-### User input data sets can be loaded by using user customized code integrated in the 'main_PI3NN.py' 
 
 
 ### Run the code
-To run the code, simply run the main file:
-python main_PI3NN.py
-By default, the program will load the UCI data sets and conduct the training on the randomly splitted train/test data. Firstly, you can make some modifications on the initial parameters/hyperparameters:
+The examples are based on the six UCI datasets (BostonHousing, Concrete, energy-efficiency, kin8nm, wine-quality, yacht). We used sklearn to conduct 90%/10% train/test split, and further obtained 10% of the validation data from those 90% of training data. The target quantile is set to 0.95. After networks training and predicted intervals optimization, the Prediction Interval Coverage Probability (PICP) and the Mean Prediction Interval Width (MPIW) for train, validation and test data will be calculated to estimate the quality of PIs. In addtion, the MSE, RMSE and R2 will be evaluated for the testing data.
+
+We provide manual and automatic mode for running the code. 
+#### Manual mode
+For the manual mode, you need to assign various hyper-parmaters:
 ```python
-configs = {'data_name':'yacht',    
-           'original_data_path': '/datasets/UCI_datasets/',
-           'splitted_data_path': '/datasets/UCI_TrainTest_Split/',
-           'split_seed': 1,                 # random seed for splitting train/test data
-           'split_test_ratio': 0.1,         # ratio of the testing data during random split
-           'seed': 10,                      # general random seed
-           'num_neurons_mean_net': 100,     # number of neurons in hidden layer for the 'MEAN' network
-           'num_neurons_up_down_net': 100,  # number of neurons in hidden layer for the 'UP'and 'DOWN' network
-           'quantile': 0.95,                # target percentile for optimization step# target percentile for optimization step
-           'Max_iter': 5000,
-           'lr': [0.1, 0.1, 0.1],           # learning rate
-           'optimizers': ['Adam', 'Adam', 'Adam'],
-           'learning_decay': True,
-           'exponential_decay': True,
-           'decay_steps': 3000,
-           'decay_rate': 0.8,
-           'saveWeights': True,
-           'loadWeights_test': False,
-           'early_stop': True,
-           'early_stop_start_iter': 500,
-           'wait_patience': 300,
-           'restore_best_weights': True,
-           'save_loss_history': True,
-           'save_loss_history_path': './Results_PI3NN/loss_history/',
-           'plot_loss_history' : True,
-           'plot_loss_history_path':'./Results_PI3NN/loss_curves/',
-           'verbose': 1,
-           'experiment_id': 9
-          }
+configs['seed'] = 10                # general random seed
+configs['num_neurons_mean'] = [50]  # hidden layer(s) for the 'MEAN' network. It can be multiple layers like [50, 50]
+configs['num_neurons_up'] = [50]    # hidden layer(s) for the 'UP' network
+configs['num_neurons_down'] = [50]  # hidden layer(s) for the 'DOWN' network
+configs['Max_iter'] = 5000          # maximum epochs
+configs['lr'] = [0.02, 0.02, 0.02]  # learning rate
+configs['optimizers'] = ['Adam', 'Adam', 'Adam'] # optimizers for 3 networks, which can be 'SGD' 
+configs['exponential_decay'] = True 
+configs['decay_steps'] = 3000
+configs['decay_rate'] = 0.9
+configs['early_stop'] = True
+configs['early_stop_start_iter'] = 100
+configs['wait_patience'] = 300
+configs['batch_training'] = False 
+configs['batch_size'] = 256
+configs['batch_shuffle'] = True
+configs['batch_shuffle_buffer'] = 1024 
 ```
-Then in this case, we initialize the data loader specifically for UCI data sets:
+The command for running manual mode:
 ```python
-dataLoader = CL_dataLoader(os.getcwd()+configs['original_data_path'])
-X_data_load, Y_data_load = dataLoader.load_single_dataset(configs['data_name'])
+python main_PI3NN.py --data boston --mode manual --quantile 0.95
+```
+Note: The data name for '--data' input for other 5 datasets are 'concrete', 'energy', 'kin8nm', 'wine', 'yacht'
+
+#### Automatic mode
+The auto mode optimize the abovementioned hyper-parameters by utilizing the 'Hyperopt' package (https://hyperopt.github.io/) to meet the desired validation PICP value against the prescribed quantile. The program will re-run the training using the optimized parameters after tuning. The command for running auto mode is:
+```python
+python main_PI3NN.py --data boston --mode auto --quantile 0.95
 ```
 
-And conduct the random train/test data splitting:
+#### Multiple PIs
+Multiple PIs can be obtained based on multiple input quantiles without re-train the networks. You need to add a list of target quantiles to the inputs by adding:
 ```python
-xTrain, xTest, yTrain, yTest = train_test_split(X_data_load, Y_data_load, 
-                                                test_size=configs['split_test_ratio'],
-                                                random_state=configs['split_seed'],
-                                                shuffle=True)
+configs['quantile_list] = np.arange(0.05, 1.00, 0.05) # 0.05-0.95
 ```
-Normalize the data before training:
-```python
-''' Standardize inputs '''
-xTrain, xTrain_mean, xTrain_std = dataLoader.standardizer(xTrain)
-xTest = (xTest - xTrain_mean) / xTrain_std
+after the data loading section in the 'main_PI3NN.py' file. Simply comment out this line in order to run single quantile estimation. Multiple PIs prediction works for manual mode only at this point. 
 
-yTrain, yTrain_mean, yTrain_std = dataLoader.standardizer(yTrain)
-yTest = (yTest - yTrain_mean) / yTrain_std
-```
-
-The networks for mean values, upper and lower bounds are initialized independently:
-```python
-''' Create network instances'''
-net_mean = UQ_Net_mean_TF2(num_inputs, num_outputs, num_neurons=configs['num_neurons_mean_net'])
-net_std_up = UQ_Net_std_TF2(num_inputs, num_outputs,  num_neurons=configs['num_neurons_up_down_net'])
-net_std_down = UQ_Net_std_TF2(num_inputs, num_outputs, num_neurons=configs['num_neurons_up_down_net'])
-```
-
-Initialize the trainer instance, and take the networks and normalized data as well as the configurations as inputs:
-```python
-trainer = CL_trainer(configs, net_mean, net_std_up, net_std_down, xTrain, yTrain, xTest, yTest)
-```
-
-Followed by the main training and optimization process:
-Train three networks:
-```python
-trainer.train()           
-```
-Optimize the upper and lower boundary using bisection method:
-```python
-trainer.boundaryOptimization()  
-```
-Evaluate the trained networks on testing data set
-```python
-trainer.testDataPrediction()  
-```
-Metrics calculations, including the prediction interval coverage probability (PICP), mean prediction interval width (MPIW), and MSE, RMSE, etc.
-```python
-trainer.capsCalculation()
-```
-The final results can be saved to txt file (/Results_PI3NN/):
-```python
-trainer.saveResultsToTxt()
-```
 
 
 

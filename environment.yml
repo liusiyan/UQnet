@@ -346,6 +346,7 @@ dependencies:
     - google-auth-oauthlib==0.4.2
     - google-pasta==0.2.0
     - grpcio==1.32.0
+    - hyperopt==0.2.5
     - intel-tensorflow-avx512==2.3.0
     - keras==2.4.3
     - keras-preprocessing==1.1.2

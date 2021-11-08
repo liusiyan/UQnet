@@ -1,4 +1,4 @@
-## PI3NN: Out-of-distribution-aware prediction intervals from three neural networks
+# PI3NN: Out-of-distribution-aware prediction intervals from three neural networks
 <br/>
 
 

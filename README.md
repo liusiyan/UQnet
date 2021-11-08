@@ -72,7 +72,7 @@ after the data loading section in the 'main_PI3NN.py' file. Simply comment out t
 
 
 
-# References
+## References
 
 [1] Siyan Liu, Pei Zhang, Dan Lu, and Guannan Zhang. "PI3NN: Out-of-distribution-aware prediction intervals from three neural networks." arXiv preprint arXiv:2108.02327 (2021). https://arxiv.org/abs/2108.02327
 

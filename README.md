@@ -1,9 +1,10 @@
 ## PI3NN: Out-of-distribution-aware prediction intervals from three neural networks
 <br/>
-
+<br/>
 
 
 We propose a novel prediction interval method to learn the prediction mean values, upper and lower bounds of the prediction intervals from three independently trained neural networks using only standard mean squared error (MSE) loss, for uncertainty quantification in regression tasks. We aim to address three major issues with the state-of-the-art PI methods. First, existing PI methods require retraining of neural networks (NNs) for every given confidence level and suffer from the crossing issue in calculating multiple PIs. Second, they usually rely on customized loss functions with extra sensitive hyperparameters for which fine tuning is required to achieve a well-calibrated PI. Third, they usually underestimate uncertainties of out-of-distribution (OOD) samples leading to over-confident PIs. Our PI3NN method calculates PIs from linear combinations of three NNs, each of which is independently trained using the standard mean squared error loss. The coefficients of the linear combinations are computed using root-finding algorithms to ensure tight PIs for a given confidence level. We theoretically prove that PI3NN can calculate PIs for a series of confidence levels without retraining NNs and it completely avoids the crossing issue. Additionally, PI3NN does not introduce any unusual hyperparameters resulting in a stable performance. Furthermore, we address OOD identification challenge by introducing an initialization scheme which provides reasonably larger PIs of the OOD samples than those of the in-distribution samples. Benchmark and real-world experiments show that our method outperforms several state-of-the-art approaches with respect to predictive uncertainty quality, robustness, and OOD samples identification.
+<br/>
 
 ### An illustrative example
 
@@ -16,7 +17,7 @@ Top panels of figure below illustrate the four steps of the PI3NN algorithm. Aft
 Top panels illustrate the four steps of our PI3NN algorithm. Bottom panels illustrate the effectiveness of the OOD identification feature. As shown in bottom left, when turning on the OOD identification feature by initializing the bias of the output layer of <img src="https://render.githubusercontent.com/render/math?math=u_\theta"> and <img src="https://render.githubusercontent.com/render/math?math=l_\xi"> to a large value, PI3NN can accurately identify the OOD regions <img src="https://render.githubusercontent.com/render/math?math=[-7,-4]\cup[4,7]">  by giving them increasingly large PIs as their distance from the training data gets large.In bottom right, if we turn off the OOD identification by using the default initialization, PI3NN will not identify the OOD regions by giving them a narrow uncertainty bound.
 </p>
 
-
+<br/>
 ### Prerequisite
 To run the code, make sure these packages are installed in addition to the commonly used Numpy, Pandas, Matplotlib, sklearn, etc. <br/>
 --- python (>=3.8, version 3.8.3 is used in this study) <br/>
@@ -24,7 +25,7 @@ To run the code, make sure these packages are installed in addition to the commo
 --- Hyperopt (=0.2.5, used for hyper-parameters tuning) <br/>
 
 
-
+<br/>
 ### Run the code
 The examples are based on the six UCI datasets (BostonHousing, Concrete, energy-efficiency, kin8nm, wine-quality, yacht). We used sklearn to conduct 90%/10% train/test split, and further obtained 10% of the validation data from those 90% of training data. The target quantile is set to 0.95. After networks training and predicted intervals optimization, the Prediction Interval Coverage Probability (PICP) and the Mean Prediction Interval Width (MPIW) for train, validation and test data will be calculated to estimate the quality of PIs. In addtion, the MSE, RMSE and R2 will be evaluated for the testing data.
 
@@ -71,7 +72,7 @@ after the data loading section in the 'main_PI3NN.py' file. Simply comment out t
 
 
 
-
+<br/>
 ## References
 
 [1] Siyan Liu, Pei Zhang, Dan Lu, and Guannan Zhang. "PI3NN: Out-of-distribution-aware prediction intervals from three neural networks." arXiv preprint arXiv:2108.02327 (2021). https://arxiv.org/abs/2108.02327

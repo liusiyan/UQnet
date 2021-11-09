@@ -62,7 +62,7 @@ We provide an example on 'boston_housing.txt' dataset below:
 ##########################################################
 data_dir = './datasets/UCI_datasets/'
 dataLoader = CL_dataLoader(original_data_path=data_dir)
-if args.data == 'energy':
+if args.data == 'energy' or args.data == 'naval':
     X, Y, _ = dataLoader.load_single_dataset(args.data) 
 else:
     X, Y = dataLoader.load_single_dataset(args.data)
@@ -167,7 +167,7 @@ else:
 
     configs['batch_training'] = False
     params_optimizer = CL_params_optimizer(configs, xTrain, yTrain, xValid, yValid, xTest, yTest)
-    optim_configs = params_optimizer.auto_params_optimization(upper_limit_iters=1000, num_trials=2, rnd_state=2)
+    optim_configs = params_optimizer.auto_params_optimization(upper_limit_iters=1000, num_trials=50, rnd_state=2)
 
 
     print('-------------------------------------------------------------')
@@ -197,7 +197,6 @@ else:
     for key, value in optim_configs.items():
         print('- {}: {}'.format(key, value))
 
-    print(configs['quantile_list'])
 
 
 

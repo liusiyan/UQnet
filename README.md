@@ -26,7 +26,7 @@ To run the code, make sure these packages are installed in addition to the commo
 
 
 ### Run the code
-The examples are based on the six UCI datasets (BostonHousing, Concrete, energy-efficiency, kin8nm, wine-quality, yacht). We used sklearn to conduct 90%/10% train/test split, and further obtained 10% of the validation data from those 90% of training data. The target quantile is set to 0.95. After networks training and predicted intervals optimization, the Prediction Interval Coverage Probability (PICP) and the Mean Prediction Interval Width (MPIW) for train, validation and test data will be calculated to estimate the quality of PIs. In addtion, the MSE, RMSE and R2 will be evaluated for the testing data.
+The examples are based on the nine UCI datasets (BostonHousing, Concrete, energy-efficiency, kin8nm, wine-quality, yacht, naval, powerplant, protein). We used sklearn to conduct 90%/10% train/test split, and further obtained 10% of the validation data from those 90% of training data. The target quantile is set to 0.95. After networks training and predicted intervals optimization, the Prediction Interval Coverage Probability (PICP) and the Mean Prediction Interval Width (MPIW) for train, validation and test data will be calculated to estimate the quality of PIs. In addtion, the MSE, RMSE and R2 will be evaluated for the testing data.
 
 We provide manual and automatic mode for running the code. 
 #### Manual mode
@@ -54,7 +54,7 @@ The command for running manual mode:
 ```python
 python main_PI3NN.py --data boston --mode manual --quantile 0.95
 ```
-Note: The data name for '--data' input for other 5 datasets are 'concrete', 'energy', 'kin8nm', 'wine', 'yacht'
+Note: The data name for '--data' input for other 8 datasets are 'concrete', 'energy', 'kin8nm', 'wine', 'yacht', 'naval', 'powerplant', 'protein'
 
 #### Automatic mode
 The auto mode optimize the abovementioned hyper-parameters by utilizing the 'Hyperopt' package (https://hyperopt.github.io/) to meet the desired validation PICP value against the prescribed quantile. The program will re-run the training using the optimized parameters after tuning. The command for running auto mode is:

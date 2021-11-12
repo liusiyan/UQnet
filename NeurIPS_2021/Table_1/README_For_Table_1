@@ -1,0 +1,11 @@
+
+The Table 1 was constructed from the raw results generated from all 3 methods (./Pre-genrated_results_Table_1)
+
+The results can be reproduced for all methods by running:
+
+--- QD method: ./QD/main_QD.py
+--- DER method: ./DER/main_DER.py
+--- PI3NN method: ./PI3NN/main_PI3NN.py
+
+More description can be found in the README files within each folder for the 3 methods.
+

@@ -1,0 +1,11 @@
+Description of the code and data for Figure 1:
+
+The Figure 1 is mainly about the tests on cubic function from PI3NN, DER and QD method.
+
+Code and plots:
+--- For PI3NN, enter the 'PI3NN_cubic' folder and run the 'PI3NN_cubic.py' ---> produce 'TrainData.dat' and 'OurMethod_cubic.dat'
+--- For QD, enter the 'QD_cubic' folder and run the 'QD_cubic.py' ---> produce ---> produce 'PI_cubic.dat'
+--- For DER, enter the 'DER_cubic' folder and run the 'run_cubic_evidentialDL.py' ---> produce 'EvidentialDL_cubic.dat'
+
+After running all three codes, you can move the generated results files 'TrainData.dat', 'OurMethod_cubic.dat', 'PI_cubic.dat', and 'EvidentialDL_cubic.dat' to upper level folder and run the 'Figure_1_plot.py' to plot the results.
+

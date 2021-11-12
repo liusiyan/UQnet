@@ -23,7 +23,6 @@ class CL_Utils:
         return numInputsOutputs
 
 
-
 ''' The early stopping method is taken and adjusted from Keras/Tensorflow EarlyStopping callback function '''
 class CL_EarlyStopping:
 

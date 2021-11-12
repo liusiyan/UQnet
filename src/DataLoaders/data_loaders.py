@@ -4,6 +4,7 @@
 import os
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 class CL_dataLoader:
     def __init__(self, original_data_path=None, configs=None):
@@ -136,6 +137,63 @@ class CL_dataLoader:
             X, Y = load_funs[name](Y_data=Y_data)
             return X, Y
 
+
+    def load_ph_timeseries(self):
+        rawData_ph_np = np.loadtxt(os.path.join(self.data_dir, 'ph.dat'))
+        # print(rawData_ph_np)
+        # print(rawData_ph_np.shape)
+        ndays = 60  
+        nfuture = 1 
+        ninputs = 3
+        nobs = ndays * ninputs
+        Ntest = 365
+
+        area = 19126.0944*0.042
+
+        xtmp = rawData_ph_np[:,0:ninputs]
+        ytmp = rawData_ph_np[:,-nfuture]
+        ytmp = ytmp/area
+        ytmp = np.reshape(ytmp, (-1, 1))
+
+        reframed = self.series_to_supervised(xtmp, ytmp, ndays, nfuture)
+        print('Shape of supervised dataset: ', np.shape(reframed))
+
+        XYdata = reframed.values
+        # 1.2 ---split into train and test sets
+        # 10/1/14-9/30/16 for training, and 10/1/17-9/30/17 for testing
+        XYtrain = XYdata[:-Ntest, :]
+        XYtest = XYdata[-Ntest:, :]
+
+        Xtrain,yobs_train = XYdata[:-Ntest, :nobs], XYdata[:-Ntest, -nfuture].reshape(-1, 1)
+        Xtest,yobs_test = XYdata[-Ntest:, :nobs], XYdata[-Ntest:, -nfuture].reshape(-1, 1)
+        print('shape of yobs_train and yobs_test is ', yobs_train.shape, yobs_test.shape)
+
+        Ntrain = len(yobs_train)
+
+        # 1.3 ---scale training data both X and y
+        scalerx = MinMaxScaler(feature_range=(0, 1))
+        train_X = scalerx.fit_transform(Xtrain)
+        test_X = scalerx.transform(Xtest)
+
+        scalery = MinMaxScaler(feature_range=(0, 1))
+        train_y = scalery.fit_transform(yobs_train)
+        test_y = scalery.transform(yobs_test)
+        print('shape of train_X, train_y, test_X, and test_y: ', train_X.shape, train_y.shape, test_X.shape, test_y.shape)
+
+        # reshape input to be 3D [samples, timesteps, features]
+        train_X = train_X.reshape((train_X.shape[0], ndays, ninputs))
+        test_X = test_X.reshape((test_X.shape[0], ndays, ninputs))
+        print('shape of train_X and test_X in 3D: ', train_X.shape, test_X.shape)
+
+        # train_X_t = torch.Tensor(train_X)
+        # test_X_t = torch.Tensor(test_X)
+        # train_y_t = torch.Tensor(train_y)
+        # test_y_t = torch.Tensor(test_y)
+
+
+
+
+
     def standardizer(self, input_np):
         input_mean = input_np.mean(axis=0, keepdims=1)
         input_std = input_np.std(axis=0, keepdims=1)
@@ -150,3 +208,29 @@ class CL_dataLoader:
             numInputsOutputs = inputsOutputs_np.shape[1]
         return numInputsOutputs
 
+
+    # --- convert series to supervised learning
+    def series_to_supervised(self, data_in, data_out, n_in=1, n_out=1, dropnan=True):
+        n_vars_in = 1 if type(data_in) is list else data_in.shape[1]
+        n_vars_out = 1 if type(data_out) is list else data_out.shape[1]
+        df_in = pd.DataFrame(data_in)
+        df_out = pd.DataFrame(data_out)
+        cols, names = list(), list()
+        # input sequence (t-n, ... t-1)
+        for i in range(n_in, 0, -1):
+            cols.append(df_in.shift(i))
+            names += [('var_in%d(t-%d)' % (j+1, i)) for j in range(n_vars_in)]
+        # forecast sequence (t, t+1, ... t+n)
+        for i in range(0, n_out):
+            cols.append(df_out.shift(-i))
+            if i == 0:
+                names += [('var_out%d(t)' % (j+1)) for j in range(n_vars_out)]
+            else:
+                names += [('var_out%d(t+%d)' % (j+1, i)) for j in range(n_vars_out)]
+        # put it all together
+        agg = pd.concat(cols, axis=1)
+        agg.columns = names
+        # drop rows with NaN values
+        if dropnan:
+            agg.dropna(inplace=True)
+        return agg

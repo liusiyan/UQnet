@@ -1,0 +1,45 @@
+PI3NN with OOD detection:
+--- Train conf_scores MEAN: 0.9048663267852929, STD: 0.25148632642054114
+--- Test: 1 rank: 4 conf_scores MEAN: 0.2385009080171585, STD: 0.05203554779291153
+--- Test: 2 rank: 3 conf_scores MEAN: 0.3171426057815552, STD: 0.08519136160612106
+--- Test: 3 rank: 2 conf_scores MEAN: 0.7162301694087272, STD: 0.2183164863081883
+--- Test: 4 rank: 1 conf_scores MEAN: 0.9156624855041067, STD: 0.23515078982081358
+
+PI3NN WITHOUT OOD detection:
+--- Train conf_scores MEAN: 0.9000687441491565, STD: 0.25705042294543834
+--- Test: 1 rank: 1 conf_scores MEAN: 0.7204635722711467, STD: 0.32074786002869404
+--- Test: 2 rank: 2 conf_scores MEAN: 0.7930030790294418, STD: 0.3170082119865828
+--- Test: 3 rank: 3 conf_scores MEAN: 0.8767858825238757, STD: 0.27392113640605825
+--- Test: 4 rank: 4 conf_scores MEAN: 0.8977509126225016, STD: 0.2587559629822787
+
+QD:
+--- Train conf_scores MEAN: 0.941807684792781, STD: 0.09597256446333678             
+--- Test: 1 rank: 1 conf_scores MEAN: 0.8921738526428481, STD: 0.2375459586589985
+--- Test: 2 rank: 2 conf_scores MEAN: 0.9018547379104845, STD: 0.23731184405493166
+--- Test: 3 rank: 3 conf_scores MEAN: 0.9215582933235035, STD: 0.16069206339891742
+--- Test: 4 rank: 4 conf_scores MEAN: 0.8287186203566279, STD: 0.14024781043236964
+
+DER: lr=1e-4 batchsize=512 neurons=100 epochs=100                                     
+--- Train conf_scores MEAN: 0.9551295893572513, STD: 0.08155651574108437
+--- Test: 1 rank: 1 conf_scores MEAN: 0.9837657660145537, STD: 0.12633039748349006
+--- Test: 2 rank: 2 conf_scores MEAN: 0.999918191196052, STD: 0.009041313762079983
+--- Test: 3 rank: 3 conf_scores MEAN: 0.9999745937561223, STD: 0.0031402333163920615
+--- Test: 4 rank: 4 conf_scores MEAN: 0.9997687314525956, STD: 0.007554722909612022
+
+PIVEN: lr=0.01 neurons=100 lambda_in=15.0 sigma_in=0.2 soften=160.0 epoch=500 decay_rate=0.99 patience=-1 out_biases=[2., -2.]   
+--- Train conf_scores MEAN: 0.9500909768013133, STD: 0.08719070382276024
+--- Test: 1 rank: 1 conf_scores MEAN: 0.8322774291976147, STD: 0.2331354548155254
+--- Test: 2 rank: 2 conf_scores MEAN: 0.8701043814092027, STD: 0.2061167258995508
+--- Test: 3 rank: 3 conf_scores MEAN: 0.9924019695418542, STD: 0.0413383914915519
+--- Test: 4 rank: 4 conf_scores MEAN: 0.9937285189200216, STD: 0.035015287663372134
+
+SQR: lr=1e-3 dropout=0.1 valid_fraction=0.2 epoch=500 neurons=100 decay=0     
+--- Train conf_scores MEAN: 0.937349678680827, STD: 0.10507753620652781
+--- Test: 1 rank: 1 conf_scores MEAN: 0.9801753470537017, STD: 0.05849149863808942
+--- Test: 2 rank: 2 conf_scores MEAN: 0.9588271582506248, STD: 1.4140603141161754
+--- Test: 3 rank: 3 conf_scores MEAN: 0.9651664586471521, STD: 0.09223446877579687
+--- Test: 4 rank: 4 conf_scores MEAN: 0.9417259638846984, STD: 0.10001808773221565
+
+
+
+

@@ -1,0 +1,111 @@
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 failed 1times!
+12345 200 160.0 15.0 0.2 0.983 10.215 0.866 0.1 [200] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 failed 1times!
+12345 200 160.0 15.0 0.2 0.0 24.343 11.159 0.1 [200] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 failed 1times!
+12345 200 160.0 15.0 0.2 0.0 10.92 11.027 0.1 [200] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 failed 1times!
+12345 200 160.0 15.0 0.2 0.045 6.261 1.488 0.1 [200] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 failed 1times!
+12345 200 160.0 15.0 0.2 0.726 5.334 0.663 0.1 [200] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 failed 1times!
+12345 200 160.0 15.0 0.2 0.734 5.253 0.643 0.1 [200] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 200 160.0 15.0 0.2 0.859 5.813 0.594 0.1 [200] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 failed 1times!
+12345 200 160.0 15.0 0.2 0.089 6.354 1.378 0.1 [200] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 200 160.0 15.0 0.2 0.859 5.813 0.594 0.1 [200] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 failed 1times!
+12345 100 160.0 15.0 0.2 0.105 3.579 0.947 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+123456 failed 1times!
+123456 100 160.0 15.0 0.2 0.666 4.787 0.642 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+123456 failed 1times!
+123456 100 160.0 15.0 0.2 0.666 4.787 0.642 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+123456 failed 1times!
+123456 100 160.0 15.0 0.2 0.675 2.028 0.295 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+123456 100 160.0 15.0 0.2 0.857 2.94 1.139 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+123456 failed 1times!
+123456 100 160.0 15.0 0.2 0.711 4.056 2.229 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 failed 1times!
+12345 100 160.0 15.0 0.2 0.262 2.058 2.496 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 failed 1times!
+12345 100 160.0 15.0 0.2 0.262 2.058 2.496 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+123456 failed 1times!
+123456 100 160.0 15.0 0.2 0.502 2.665 2.049 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+123456 failed 1times!
+123456 100 160.0 15.0 0.2 0.264 3.93 3.558 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+123456 failed 1times!
+123456 100 160.0 15.0 0.2 0.238 1.524 2.238 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+123456 failed 1times!
+123456 100 160.0 15.0 0.2 0.264 3.93 3.558 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 failed 1times!
+12345 100 160.0 15.0 0.2 0.3 3.782 3.409 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 failed 1times!
+12345 100 160.0 15.0 0.2 0.584 3.56 2.322 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+12345 100 160.0 15.0 0.2 0.879 3.788 1.52 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+1234567 failed 1times!
+1234567 100 160.0 15.0 0.2 0.384 3.493 2.867 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+1234567 failed 1times!
+1234567 100 160.0 15.0 0.2 0.29 2.01 2.355 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+1234567 failed 1times!
+1234567 100 160.0 15.0 0.2 0.638 2.484 1.659 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+1234567 failed 1times!
+1234567 100 160.0 15.0 0.2 0.638 3.501 2.179 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+1234567 failed 1times!
+1234567 100 160.0 15.0 0.2 0.384 3.493 2.867 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+1234567 failed 1times!
+1234567 100 160.0 15.0 0.2 0.384 3.493 2.867 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+1234567 failed 1times!
+1234567 100 160.0 15.0 0.2 0.164 4.573 5.868 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+1234567 100 160.0 15.0 0.2 0.783 3.145 1.448 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+1234567 failed 1times!
+1234567 100 160.0 15.0 0.2 0.554 1.659 1.413 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+1234567 failed 1times!
+1234567 100 160.0 15.0 0.2 0.024 0.594 5.823 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+1234567 failed 1times!
+1234567 100 160.0 15.0 0.2 0.073 1.869 5.502 0.1 [100] 1000 0.01 0.9 1 1
+random_seed neurons soft lambda_in sigma_in PICP_test MPIW_test RMSE alpha h_size epochs lr decay_rate ensemb n_runs
+1234567 failed 1times!
+1234567 100 160.0 15.0 0.2 0.055 2.496 6.052 0.1 [100] 1000 0.01 0.9 1 1

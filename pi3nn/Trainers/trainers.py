@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
 import time
 import math
 
-from src.Networks.networks import UQ_Net_mean_TF2, UQ_Net_std_TF2
-from src.Networks.networks import CL_UQ_Net_train_steps
-from src.Visualizations.visualization import CL_plotter
-from src.Optimizations.boundary_optimizer import CL_boundary_optimizer
+from pi3nn.Networks.networks import UQ_Net_mean_TF2, UQ_Net_std_TF2
+from pi3nn.Networks.networks import CL_UQ_Net_train_steps
+from pi3nn.Visualizations.visualization import CL_plotter
+from pi3nn.Optimizations.boundary_optimizer import CL_boundary_optimizer
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 

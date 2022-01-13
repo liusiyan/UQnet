@@ -11,9 +11,9 @@ import tensorflow as tf
 
 ##### Hyperopt hyperparameter tuning test
 from hyperopt import fmin, hp, Trials, STATUS_OK, tpe, rand
-from src.Networks.networks import UQ_Net_mean_TF2, UQ_Net_std_TF2
-from src.Trainers.trainers import CL_trainer
-from src.Utils.Utils import CL_Utils
+from pi3nn.Networks.networks import UQ_Net_mean_TF2, UQ_Net_std_TF2
+from pi3nn.Trainers.trainers import CL_trainer
+from pi3nn.Utils.Utils import CL_Utils
 utils = CL_Utils()
 
 class CL_params_optimizer:

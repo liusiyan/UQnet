@@ -35,14 +35,14 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from tensorflow.keras.layers import Dense
 from tensorflow.keras import Model
 
-from src.DataLoaders.data_loaders import CL_dataLoader
-from src.Networks.networks import UQ_Net_mean_TF2, UQ_Net_std_TF2
-from src.Networks.networks import CL_UQ_Net_train_steps
-from src.Trainers.trainers import CL_trainer
-from src.Optimizations.boundary_optimizer import CL_boundary_optimizer
-from src.Visualizations.visualization import CL_plotter
-from src.Optimizations.params_optimizer import CL_params_optimizer
-from src.Utils.Utils import CL_Utils
+from pi3nn.DataLoaders.data_loaders import CL_dataLoader
+from pi3nn.Networks.networks import UQ_Net_mean_TF2, UQ_Net_std_TF2
+from pi3nn.Networks.networks import CL_UQ_Net_train_steps
+from pi3nn.Trainers.trainers import CL_trainer
+from pi3nn.Optimizations.boundary_optimizer import CL_boundary_optimizer
+from pi3nn.Visualizations.visualization import CL_plotter
+from pi3nn.Optimizations.params_optimizer import CL_params_optimizer
+from pi3nn.Utils.Utils import CL_Utils
 
 utils = CL_Utils()
 parser = argparse.ArgumentParser()

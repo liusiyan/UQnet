@@ -85,3 +85,53 @@ class CL_boundary_optimizer:
 
         c_down = c_down2
         return c_down
+
+
+class CL_prediction_shifter:
+    def __init__(self, configs, yTrain, output_mean, num_outlier=None,
+                 c_m0_ini=None,
+                 c_m1_ini=None,
+                 max_iter=None):
+
+        self.configs = configs
+        self.yTrain = yTrain
+        self.Ntrain = self.yTrain.shape[0]
+        self.output_mean = output_mean
+
+        self.c_m0 = c_m0_ini
+        self.c_m1 = c_m1_ini
+        self.max_iter = max_iter
+
+    def median_shift(self, verbose=0):
+        self.yTrain = self.yTrain.flatten()
+        half_num_data = int(self.Ntrain / 2)
+        f0 = np.count_nonzero(self.yTrain >= self.output_mean.numpy().flatten() + self.c_m0 * self.output_mean.numpy().flatten()) - half_num_data
+        f1 = np.count_nonzero(self.yTrain >= self.output_mean.numpy().flatten() + self.c_m1 * self.output_mean.numpy().flatten()) - half_num_data
+        iter = 0
+        while iter <= self.max_iter and f0 != 0 and f1 != 0:
+            self.c_m2 = (self.c_m0 + self.c_m1) / 2.0
+            f2 = np.count_nonzero(
+                self.yTrain >= self.output_mean.numpy().flatten() + self.c_m2 * self.output_mean.numpy().flatten()) - half_num_data
+            if f2 == 0:
+                break
+            elif f2 > 0:
+                self.c_m0 = self.c_m2
+                f0 = f2
+            else:
+                self.c_m1 = self.c_m2
+                f1 = f2
+            iter += 1
+            if verbose > 1:
+                print('{}, f0: {}, f1: {}, f2: {}'.format(iter, f0, f1, f2))
+                print('c_m0: {}, c_m1: {}, c_m2: {}'.format(self.c_m0, self.c_m1, self.c_m2))
+        if verbose > 0:
+            print('f0 : {}'.format(f0))
+            print('f1 : {}'.format(f1))
+            print('c_m0: {}, c_m1: {}, c_m2: {}'.format(self.c_m0, self.c_m1, self.c_m2))
+        c_m = self.c_m2
+        return c_m
+        
+
+
+
+

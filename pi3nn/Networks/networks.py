@@ -8,6 +8,15 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras import Model, layers
 import warnings
 
+from sklearn.metrics import r2_score
+from pi3nn.Utils.Utils import CL_losses
+
+import os
+num_threads = 1
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["TF_NUM_INTRAOP_THREADS"] = "1"
+os.environ["TF_NUM_INTEROP_THREADS"] = "1"
+
 ''' Network definition '''
 class UQ_Net_mean_TF2(Model):
 	def __init__(self, configs, num_inputs, num_outputs):
@@ -53,13 +62,13 @@ class UQ_Net_std_TF2(Model):
 			self.fcs.append(
 				Dense(self.num_nodes_list[i], activation='relu',
 					  kernel_initializer=initializer,
-					  kernel_regularizer=tf.keras.regularizers.l1_l2(l1=0.02, l2=0.02)
+					  kernel_regularizer=tf.keras.regularizers.l1_l2(l1=0.02, l2=0.02) # 0.02, 0.02
 					  )
 				)
 
 		self.outputLayer = Dense(num_outputs)
 		if bias is None:
-			self.custom_bias = tf.Variable([3.0])
+			self.custom_bias = tf.Variable([0.0])
 		else:
 			self.custom_bias = tf.Variable([bias])
 
@@ -69,13 +78,11 @@ class UQ_Net_std_TF2(Model):
 			x = self.fcs[i](x)
 		x = self.outputLayer(x)
 		x = tf.nn.bias_add(x, self.custom_bias)
-		x = tf.math.sqrt(tf.math.square(x) + 0.2)  # 1e-10 0.2
+		x = tf.math.sqrt(tf.math.square(x) + self.configs['a_param'])  # 0.2 1e-8 1e-10 0.2
 		return x
 
+
 class CL_UQ_Net_train_steps:
-	# def __init__(self, net_mean,     optimizer_net_mean,
-	#                    net_std_up,   optimizer_net_std_up,
-	#                    net_std_down, optimizer_net_std_down):
 	def __init__(self, net_mean, net_std_up, net_std_down,
 				# xTrain, yTrain, xTest=None, yTest=None,
 				optimizers=['Adam', 'Adam', 'Adam'],
@@ -85,25 +92,13 @@ class CL_UQ_Net_train_steps:
 				decay_rate=None
 		):
 
-		# self.xTrain = xTrain
-		# self.yTrain = yTrain
-		# if xTest is not None:
-		#     self.xTest = xTest
-		# if yTest is not None:
-		#     self.yTest = yTest
-		#     if len(self.yTest.shape) == 1:  # convert to shape (x, 1) from (x,)
-		#         self.yTest = self.yTest.reshape(-1, 1)
-
-		# if len(self.yTrain.shape) == 1:  # convert to shape (x, 1) from (x,)
-		#     self.yTrain = self.yTrain.reshape(-1, 1)
-
-
 		self.exponential_decay = exponential_decay
 		self.decay_steps = decay_steps
 		self.decay_rate = decay_rate
 
 		self.criterion_mean = tf.keras.losses.MeanSquaredError()
 		self.criterion_std = tf.keras.losses.MeanSquaredError()
+		self.criterion_mean_all = tf.keras.losses.MeanSquaredError()
 
 		# accumulate the loss and compute the mean until .reset_states()
 		self.train_loss_net_mean = tf.keras.metrics.Mean(name='train_loss_net_mean')
@@ -227,7 +222,12 @@ class CL_UQ_Net_train_steps:
 			batch_test_loss = self.criterion_mean(y_batch_test, batch_test_predictions)
 		self.test_loss_net_mean(batch_test_loss)
 
-
+	@tf.function
+	def test_step_mean(self, x_test, y_test):
+		with tf.GradientTape() as tape:
+			test_predictions = self.net_mean(x_test, training=False)
+			test_loss = self.criterion_mean_all(y_test, test_predictions)
+		return test_predictions, test_loss
 
 	''' Training/validation for upper boundary (For Non-batch training) '''
 	@tf.function
@@ -341,3 +341,6 @@ class CL_UQ_Net_train_steps:
 			batch_test_predictions = self.net_std_down(x_batch_test, training=False)
 			batch_test_loss = self.criterion_std(y_batch_test, batch_test_predictions)
 		self.test_loss_net_std_down(batch_test_loss)
+
+
+

@@ -1,10 +1,13 @@
 
-''' Benchmark datasets loading and synthetic data generating '''
+''' Data loaders '''
 
 import os
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+
 
 class CL_dataLoader:
     def __init__(self, original_data_path=None, configs=None):
@@ -137,61 +140,208 @@ class CL_dataLoader:
             X, Y = load_funs[name](Y_data=Y_data)
             return X, Y
 
+    def load_streamflow_timeseries(self, configs, return_original_ydata=False):
 
-    def load_ph_timeseries(self):
-        rawData_ph_np = np.loadtxt(os.path.join(self.data_dir, 'ph.dat'))
-        # print(rawData_ph_np)
-        # print(rawData_ph_np.shape)
-        ndays = 60  
-        nfuture = 1 
-        ninputs = 3
+        data_name = configs['data_name']
+        num_inputs = configs['num_inputs']
+        logtrans = configs['ylog_trans']
+        plot_origin = configs['plot_origin']
+        inputs_smoothing = configs['inputs_smoothing']
+        # Name = ['Bradley','Copper','Gothic','Qui','Rock','RUS','EAQ','ph']
+        # Ndata = [716, 848, 776, 774, 1131, 805, 774, 1096]
+        # area = [881.6728, 5340.8252, 202.2172, 576.4915, 799.9965, 3340.0724, 1191.1487, 19126.0944]*0.042 
+        # column name = ['Preciptation','Tmax','Tmin','Model_simulation','streamflow']
+        # streamfow = streamflow/area
+        # Use first 3 or 4 inputs to predict streamflow, where the streamflow is calcualted as the 5th column values/area
+        # Save the last 365 days as testing data, use the remaining data as training
+        rawData_np = np.loadtxt(os.path.join(self.data_dir, data_name+'.dat'))
+
+        print(data_name)
+        # print(rawData_np)
+        print('-- Raw data shape: {}'.format(rawData_np.shape))
+        print('-- Num of inputs: {}'.format(num_inputs))
+
+
+        if inputs_smoothing:
+            from tsmoothie.smoother import LowessSmoother, ExponentialSmoother, ConvolutionSmoother
+            # from tsmoothie.utils_func import sim_seasonal_data
+
+            smoother = ConvolutionSmoother(window_len=50, window_type='ones')
+            smoother.smooth(rawData_np[:, 0:5].T)
+
+            # generate intervals
+            # low, up = smoother.get_intervals('prediction_interval')
+            low, up = smoother.get_intervals('sigma_interval')
+            fig, ((ax1, ax2), (ax3, ax4), (ax5, ax6), (ax7, ax8), (ax9, ax10)) = plt.subplots(nrows=5, ncols=2, figsize=(20,16))
+            # ax1.plot(rawData_np[:, 0])
+            ax1.plot(smoother.data[0], label='Preciptation')
+            ax2.plot(smoother.smooth_data[0], label='Preciptation (smoothed)')
+
+            ax3.plot(rawData_np[:, 1], label='MaxT')
+            ax4.plot(smoother.smooth_data[1], label='MaxT (smoothed)')
+            ax5.plot(rawData_np[:, 2], label='MinT')
+            ax6.plot(smoother.smooth_data[2], label='MinT (smoothed)')
+
+            ax7.plot(rawData_np[:, 3], label='Model_simulation')
+            ax9.plot(rawData_np[:, 4], label='Stream flow') 
+
+            ax8.plot(smoother.smooth_data[3], label='Model_simulation (smoothed')
+            ax10.plot(smoother.smooth_data[4], label='Stream flow (smoothed)') 
+
+            ax1.legend();ax2.legend();ax3.legend();ax4.legend();ax5.legend();ax6.legend();ax7.legend();ax8.legend();ax9.legend();ax10.legend() 
+            plt.suptitle('Original data (left) and the smoothed data (right) for {} \n smoother = ConvolutionSmoother(window_len=100, window_type=\'ones\')'.format(data_name))
+            plt.show()
+
+        if plot_origin:
+            # import matplotlib.pyplot as plt
+            fig, (ax1, ax2, ax3, ax4) = plt.subplots(nrows=4, ncols=1, figsize=(20,16))
+
+            ax1.plot(rawData_np[:, 0], label='Preciptation')
+            ax2.plot(rawData_np[:, 1], label='MaxT')
+            ax3.plot(rawData_np[:, 2], label='MinT')
+            # ax4.plot(rawData_np[:, 3], label='Model_simulation')
+            ax4.plot(rawData_np[:, 4], label='Stream flow') 
+
+            ax1.set_title('Precipitation')
+            ax2.set_title('MaxT')
+            ax3.set_title('MinT')
+            # ax4.set_title('Stream flow (model simulation)')
+            ax4.set_title('Stream flow')
+
+            ax1.set_xlabel('Time (days)')
+            ax2.set_xlabel('Time (days)')
+            ax3.set_xlabel('Time (days)')
+            # ax4.set_xlabel('Time (days)')
+            ax4.set_xlabel('Time (days)')
+
+            plt.suptitle('Original data for {}'.format(data_name))
+            plt.tight_layout()
+            plt.savefig(configs['project']+configs['exp']+'/'+configs['save_encoder_folder']+'/'+'origin.png')
+            # plt.show()
+            plt.close()
+
+        ndays = configs['ndays']     # 60 #60 # 45 # 60 for Rock; 45 for Qui
+        nfuture = configs['nfuture'] # 1 
+        ninputs = configs['num_inputs'] # num_inputs
         nobs = ndays * ninputs
-        Ntest = 365
+        Ntest = configs['ntest']   # 365 # 365
+        Nvalid = configs['nvalid'] # 60
 
-        area = 19126.0944*0.042
+        Name_list = ['Bradley','Copper','Gothic','Qui','Rock','RUS','EAQ','ph']
+        area_list = [x*0.042 for x in [881.6728, 5340.8252, 202.2172, 576.4915, 799.9965, 3340.0724, 1191.1487, 19126.0944]]
+        area = area_list[Name_list.index(data_name)]
 
-        xtmp = rawData_ph_np[:,0:ninputs]
-        ytmp = rawData_ph_np[:,-nfuture]
+        xtmp = rawData_np[:,0:ninputs]
+        ytmp = rawData_np[:,-nfuture]
         ytmp = ytmp/area
+
+        if logtrans:
+            ytmp = np.log(ytmp)
+
         ytmp = np.reshape(ytmp, (-1, 1))
+        # print('max of obs (in/d)', np.max(ytmp))
 
+        noutputs = ytmp.shape[1]
         reframed = self.series_to_supervised(xtmp, ytmp, ndays, nfuture)
-        print('Shape of supervised dataset: ', np.shape(reframed))
-
         XYdata = reframed.values
-        # 1.2 ---split into train and test sets
-        # 10/1/14-9/30/16 for training, and 10/1/17-9/30/17 for testing
-        XYtrain = XYdata[:-Ntest, :]
-        XYtest = XYdata[-Ntest:, :]
 
-        Xtrain,yobs_train = XYdata[:-Ntest, :nobs], XYdata[:-Ntest, -nfuture].reshape(-1, 1)
-        Xtest,yobs_test = XYdata[-Ntest:, :nobs], XYdata[-Ntest:, -nfuture].reshape(-1, 1)
-        print('shape of yobs_train and yobs_test is ', yobs_train.shape, yobs_test.shape)
 
-        Ntrain = len(yobs_train)
+        ##### New data splitting: first prepare the test/train data, and SHUFFLE split the train/validation data
+        print('-- Reframed XYdata shape: {}'.format(XYdata.shape))
+        print('-- pre-frame xtmp shape: {}'.format(xtmp.shape))
+        print('-- pre-frame ytmp shape: {}'.format(ytmp.shape))
+        print('-- pre-frame ndays: {}'.format(ndays))
+        print('-- pre-frame nfuture: {}'.format(nfuture))
+        ### split the testing data
 
-        # 1.3 ---scale training data both X and y
-        scalerx = MinMaxScaler(feature_range=(0, 1))
-        train_X = scalerx.fit_transform(Xtrain)
-        test_X = scalerx.transform(Xtest)
+        ### shuffle splitting train/valid data
+        ### manual shuffle
+        ### first choose the Y values and the corresponding index
+        ### then slice the X values according to the index
 
-        scalery = MinMaxScaler(feature_range=(0, 1))
-        train_y = scalery.fit_transform(yobs_train)
-        test_y = scalery.transform(yobs_test)
-        print('shape of train_X, train_y, test_X, and test_y: ', train_X.shape, train_y.shape, test_X.shape, test_y.shape)
+        ### np.random.shuffle(list or numpy array)
+        ### first split the train and test in chunk
+        XYtrain = XYdata[:-Ntest, :]  # remove the last Ntest rows
+        XYtest = XYdata[-Ntest:, :]   # keep the last Ntest rows
+
+        print('-- XYtrain shape: {}'.format(XYtrain.shape))   ### (320, 136)   136 = 45 (lookback days) * 3 (input features) + 1 (output features)
+        print('-- XYtest shape: {}'.format(XYtest.shape))     ### (365, 136)
+        print('-- nobs: {}'.format(nobs))  ##       nobs = ndays * ninputs     ### 45*3 = 135
+
+        ## train
+        Xtrain = XYdata[:-Ntest, :nobs]         ### remove the last Ntest rows, and pick first 'nobs' cols 
+        yobs_train = XYdata[:-Ntest, -nfuture]  ### remove the last Ntest rows, and pick last col
+        print('-- yobs_train shape: {}'.format(yobs_train.shape))
+        yobs_train = yobs_train.reshape(-1, 1)
+        print('-- yobs_train shape: {}'.format(yobs_train.shape))
+
+        ### test
+        Xtest = XYdata[-Ntest:, :nobs]
+        yobs_test = XYdata[-Ntest:, -nfuture]
+        print('-- yobs_test shape: {}'.format(yobs_test.shape))
+        yobs_test = yobs_test.reshape(-1, 1)
+        print('-- yobs_test shape: {}'.format(yobs_test.shape))
+
+        # exit()
+
+        ##### Split into train/valid/test datasets
+        ### test manual split for testing
+        # xTrain, xValid = Xtrain[:-60, :], Xtrain[-60:, :]
+        # yTrain, yValid = yobs_train[:-60, :], yobs_train[-60:, :]
+
+        xTrain, xValid, yTrain, yValid = train_test_split(pd.DataFrame(Xtrain), pd.DataFrame(yobs_train), test_size=60, random_state=0)
+
+        xTrain_idx = xTrain.index
+        xValid_idx = xValid.index
+
+        xTest = Xtest
+        yTest = yobs_test
+
+        print('--- xTrain, yTrain shape: {}, {}'.format(xTrain.shape, yTrain.shape))
+        print('--- xValid, yValid shape: {}, {}'.format(xValid.shape, yValid.shape))
+        print('--- xTest, yTest shape: {}, {}'.format(xTest.shape, yTest.shape))
+        # print(yTrain)
+        # exit()
+
+        #### to float32
+        xTrain = xTrain.astype(np.float32)
+        yTrain = yTrain.astype(np.float32)
+        xValid = xValid.astype(np.float32)
+        yValid = yValid.astype(np.float32)
+        xTest = xTest.astype(np.float32)
+        yTest = yTest.astype(np.float32)
+
+        ### keep the original y data without scaling
+        ori_yTrain = yTrain   
+        ori_yValid = yValid
+        ori_yTest = yTest
+
+        # ---scale training data both X and y
+        # scalerx = MinMaxScaler(feature_range=(0, 1))
+        scalerx = StandardScaler()
+        xTrain = scalerx.fit_transform(xTrain)
+        xValid = scalerx.transform(xValid)
+        xTest = scalerx.transform(xTest)
+
+        # scalery = MinMaxScaler(feature_range=(0, 1))
+        scalery = StandardScaler()
+        yTrain = scalery.fit_transform(yTrain)
+        yValid = scalery.transform(yValid)
+        yTest = scalery.transform(yTest)
 
         # reshape input to be 3D [samples, timesteps, features]
-        train_X = train_X.reshape((train_X.shape[0], ndays, ninputs))
-        test_X = test_X.reshape((test_X.shape[0], ndays, ninputs))
-        print('shape of train_X and test_X in 3D: ', train_X.shape, test_X.shape)
+        xTrain = xTrain.reshape((xTrain.shape[0], ndays, ninputs))
+        xValid = xValid.reshape((xValid.shape[0], ndays, ninputs))
+        xTest = xTest.reshape((xTest.shape[0], ndays, ninputs))
 
-        # train_X_t = torch.Tensor(train_X)
-        # test_X_t = torch.Tensor(test_X)
-        # train_y_t = torch.Tensor(train_y)
-        # test_y_t = torch.Tensor(test_y)
+        print('--- xTrain shape: {}'.format(xTrain.shape))
+        print('--- xValid shape: {}'.format(xValid.shape))
+        print('--- xTest shape: {}'.format(xTest.shape))
 
-
-
+        if return_original_ydata:
+            return xTrain, xValid, xTest, yTrain, yValid, yTest, ninputs, noutputs, scalerx, scalery, ori_yTrain, ori_yValid, ori_yTest, xTrain_idx, xValid_idx
+        else:
+            return xTrain, xValid, xTest, yTrain, yValid, yTest, ninputs, noutputs, scalerx, scalery
 
 
     def standardizer(self, input_np):

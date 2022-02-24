@@ -1,0 +1,92 @@
+{
+    "data_name": "Qui",
+    "data_dir": "./datasets/Timeseries/StreamflowData/",
+    "quantile": 0.9,
+    "mode": "PI3NN_MLP",
+    "encoder_path": "encoder_results",
+    "PI3NN_results_folder": "PI3NN_results",
+    "save_PI3NN_MLP": false,
+    "save_PI3NN_MLP_folder": "PI3NN_results",
+    "load_PI3NN_MLP": true,
+    "load_PI3NN_MLP_folder": "PI3NN_results",
+    "save_PI3NN_MLP_pred": true,
+    "save_PI3NN_MLP_pred_folder": "PI3NN_results",
+
+    "ndays": 45,
+    "nfuture": 1,        
+    "ntest": 365,    
+    "nvalid": 60,        
+    "num_inputs": 3,    
+
+    "experiment_id": 1,
+    "verbose": 1,
+    "save_loss_history": false,
+    "save_loss_history_path": "./Results_PI3NN/loss_history/",
+    "plot_loss_history": false,
+    "plot_loss_history_path": "./Results_PI3NN/loss_curves/",
+    "exponential_decay": false,
+    "decay_rate": 0.99,
+    "decay_steps": 100,
+
+    "a_param": 3.0,
+
+
+    "Max_iter": [
+        335,
+        50,
+        50
+    ],
+    "stop_losses": [
+        null,
+        null,
+        null
+    ],
+    "optimizers": [
+        "Adam",
+        "Adam",
+        "Adam"
+    ],
+    "lr": [
+        0.001,
+        0.001,
+        0.001
+    ],
+
+    "test_biases": false,
+    "test_biases_list": [0.0, 5.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0],
+    
+    "bias_up": 0.0,
+    "bias_down": 0.0,
+    "num_neurons_mean": [
+        128
+    ],
+    "num_neurons_up": [
+        10
+    ],
+    "num_neurons_down": [
+        10
+    ],
+    "batch_size": 32,
+    "seed": 1,
+    "early_stop": false,
+    "early_stop_start_iter": 100,
+    "wait_patience": 10,
+    "batch_shuffle": true,
+    "batch_shuffle_buffer": 1024,
+    "saveWeights": false,
+    "loadWeights_test": false,
+    "restore_best_weights": true,
+    "batch_training": true,
+    "ylog_trans": true,
+    "ypower_root_trans": [
+        false,
+        2
+    ],
+    "weighted_MSE": false,
+    "analyze_residuals": false,
+    "plot_PI3NN_ylims" : [[-0.1, 1.0], [-0.1, 1.0]],
+
+    "train_PIW_quantile": null,
+    "PICP_evaluation_mode": 1
+
+}

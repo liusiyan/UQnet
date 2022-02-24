@@ -25,10 +25,10 @@ python main_PI3NN.py --data Rock --mode lstm_encoder --project ./examples/stream
 python main_PI3NN.py --data Rock --mode PI3NN_MLP --project ./examples/streamflow_proj/ --exp Rock --configs ./examples/streamflow_proj/Rock/configs_PI3NN.json
 ```
 
-Note: You will be loading the pre-trained models to generate results and plots, you can re-train the networks by setting:
-(1)"save_encoder": true and "load_encoder": false in 'configs_encoder.json' for LSTM-encoder
-(2)"save_PI3NN_MLP": true and "load_PI3NN_MLP": false in 'configs_PI3NN.json' for PI3NN-MLP
-You will need to train (or load) encoder first to generate intermediate results before running the PI3NN-MLP.
+Note: You will be loading the pre-trained models to generate results and plots, you can re-train the networks by setting: <br/>
+(1)"save_encoder": true and "load_encoder": false in 'configs_encoder.json' for LSTM-encoder <br/>
+(2)"save_PI3NN_MLP": true and "load_PI3NN_MLP": false in 'configs_PI3NN.json' for PI3NN-MLP <br/>
+You will need to train (or load) encoder first to generate intermediate results before running the PI3NN-MLP. <br/>
 
 More descriptions and documentations in progress...
 

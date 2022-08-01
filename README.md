@@ -80,7 +80,7 @@ after the data loading section in the 'main_PI3NN.py' file. Simply comment out t
 
 [3] Pei Zhang, Siyan Liu, Dan Lu, Guannan Zhang, and Ramanan Sankaran. "A prediction interval method for uncertainty quantification of regression models". ICLR 2021 SimDL Workshop. https://simdl.github.io/files/52.pdf
 
-[4] Pei Zhang, Siyan Liu, Dan Lu, Ramanan Sankaran, and Guannan Zhang. "An out-of-distribution-aware autoencoder model for reduced chemical kinetics." Discrete Continuous Dynamical Systems - S 15(4)(2022)913-930  
+[4] Pei Zhang, Siyan Liu, Dan Lu, Ramanan Sankaran, and Guannan Zhang. "An out-of-distribution-aware autoencoder model for reduced chemical kinetics." Discrete Continuous Dynamical Systems - S 15(4)(2022)913-930 https://www.aimsciences.org/article/doi/10.3934/dcdss.2021138 
 
 
 Have fun!

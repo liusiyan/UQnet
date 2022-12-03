@@ -1,7 +1,7 @@
-# PI3NN-LSTM: Out-of-distribution-aware prediction intervals from three neural networks --- for time-series data
+# UQnet-LSTM: Out-of-distribution-aware prediction intervals from three neural networks --- for time-series data
 <br/>
 
-This is the development branch for PI3NN-LSTM. We use the vanilla LSTM network as the encoder to extract the information from time-series data, then we train PI3NN-MLP networks for UQ based on the intermediate predictions from the LSTM encoder. 
+This is the development branch for UQnet-LSTM. We use the vanilla LSTM network as the encoder to extract the information from time-series data, then we train UQnet-MLP networks for UQ based on the intermediate predictions from the LSTM encoder. 
 
 ### Run the examples
 
@@ -44,6 +44,9 @@ More descriptions and documentations in progress...
 
 [4] Pei Zhang, Siyan Liu, Dan Lu, Ramanan Sankaran, and Guannan Zhang. "An out-of-distribution-aware autoencoder model for reduced chemical kinetics." Discrete Continuous Dynamical Systems - S 15(4)(2022)913-930 https://www.aimsciences.org/article/doi/10.3934/dcdss.2021138 
 
+[5] Lu, D., Liu, S., Painter, S. L., Griffiths, N. A., & Pierce, E. M. Uncertainty Quantification of Machine Learning Models to Improve Streamflow Prediction Under Changing Climate and Environmental Conditions. Earth and Space Science Open Archive (ESSOAr). https://doi.org/10.1002/essoar.10512253.1
+
+[6] Liu, Siyan and Fan, Ming and Lu, Dan, Uncertainty Quantification of Machine Learning-Based Permeability Estimation from Rock Images. Available at SSRN: http://dx.doi.org/10.2139/ssrn.4279760
 
 Have fun!
 

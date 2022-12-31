@@ -81,9 +81,9 @@ class CL_params_optimizer:
 
 		trials = Trials()
 		if rnd_state is None:
-			rstate = np.random.RandomState()
+			rstate = np.random.default_rng() # np.random.RandomState() -- depreciated for new Numpy version
 		if rnd_state is not None:
-			rstate = np.random.RandomState(rnd_state)
+			rstate = np.random.default_rng(rnd_state) # np.random.RandomState(rnd_state) -- depreciated for new Numpy version
 		optim_params = fmin(self.params_optim_target_function, space, algo=tpe.suggest, max_evals=num_trials, trials=trials, rstate=rstate)
 
 		# print('--- Optimized parameters: ')

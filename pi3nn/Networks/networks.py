@@ -119,45 +119,45 @@ class CL_UQ_Net_train_steps:
 		self.net_mean = net_mean
 		if exponential_decay is False:
 			if optimizers[0] == 'Adam':
-				self.optimizer_net_mean = tf.keras.optimizers.Adam(learning_rate=lr[0])
+				self.optimizer_net_mean = tf.keras.optimizers.legacy.Adam(learning_rate=lr[0])
 			elif optimizers[0] == 'SGD':
-				self.optimizer_net_mean = tf.keras.optimizers.SGD(learning_rate=lr[0])
+				self.optimizer_net_mean = tf.keras.optimizers.legacy.SGD(learning_rate=lr[0])
 		else:
 			self.global_step_0 = tf.Variable(0, trainable=False)
 			decayed_l_rate_0 = tf.compat.v1.train.exponential_decay(lr[0], self.global_step_0, decay_steps=decay_steps, decay_rate=decay_rate, staircase=False)
 			if optimizers[0] == 'Adam':
-				self.optimizer_net_mean = tf.keras.optimizers.Adam(learning_rate=decayed_l_rate_0)
+				self.optimizer_net_mean = tf.keras.optimizers.legacy.Adam(learning_rate=decayed_l_rate_0)
 			elif optimizers[0] == 'SGD':
-				self.optimizer_net_mean = tf.keras.optimizers.SGD(learning_rate=decayed_l_rate_0)
+				self.optimizer_net_mean = tf.keras.optimizers.legacy.SGD(learning_rate=decayed_l_rate_0)
 
 
 		self.net_std_up = net_std_up
 		if exponential_decay is False:
 			if optimizers[1] == 'Adam':
-				self.optimizer_net_std_up = tf.keras.optimizers.Adam(learning_rate=lr[1])
+				self.optimizer_net_std_up = tf.keras.optimizers.legacy.Adam(learning_rate=lr[1])
 			elif optimizers[1] == 'SGD':
-				self.optimizer_net_std_up = tf.keras.optimizers.SGD(learning_rate=lr[1])
+				self.optimizer_net_std_up = tf.keras.optimizers.legacy.SGD(learning_rate=lr[1])
 		else:
 			self.global_step_1 = tf.Variable(0, trainable=False)
 			decayed_l_rate_1 = tf.compat.v1.train.exponential_decay(lr[1], self.global_step_1, decay_steps=decay_steps, decay_rate=decay_rate, staircase=False)
 			if optimizers[1] == 'Adam':
-				self.optimizer_net_std_up = tf.keras.optimizers.Adam(learning_rate=decayed_l_rate_1)
+				self.optimizer_net_std_up = tf.keras.optimizers.legacy.Adam(learning_rate=decayed_l_rate_1)
 			elif optimizers[1] == 'SGD':
-				self.optimizer_net_std_up = tf.keras.optimizers.SGD(learning_rate=decayed_l_rate_1)
+				self.optimizer_net_std_up = tf.keras.optimizers.legacy.SGD(learning_rate=decayed_l_rate_1)
 
 		self.net_std_down = net_std_down
 		if exponential_decay is False:
 			if optimizers[2] == 'Adam':
-				self.optimizer_net_std_down = tf.keras.optimizers.Adam(learning_rate=lr[2])
+				self.optimizer_net_std_down = tf.keras.optimizers.legacy.Adam(learning_rate=lr[2])
 			elif optimizers[2] == 'SGD':
-				self.optimizer_net_std_down = tf.keras.optimizers.SGD(learning_rate=lr[2])
+				self.optimizer_net_std_down = tf.keras.optimizers.legacy.SGD(learning_rate=lr[2])
 		else:
 			self.global_step_2 = tf.Variable(0, trainable=False)
 			decayed_l_rate_2 = tf.compat.v1.train.exponential_decay(lr[2], self.global_step_2, decay_steps=decay_steps, decay_rate=decay_rate, staircase=False)
 			if optimizers[1] == 'Adam':
-				self.optimizer_net_std_down = tf.keras.optimizers.Adam(learning_rate=decayed_l_rate_2)
+				self.optimizer_net_std_down = tf.keras.optimizers.legacy.Adam(learning_rate=decayed_l_rate_2)
 			elif optimizers[1] == 'SGD':
-				self.optimizer_net_std_down = tf.keras.optimizers.SGD(learning_rate=decayed_l_rate_2)
+				self.optimizer_net_std_down = tf.keras.optimizers.legacy.SGD(learning_rate=decayed_l_rate_2)
 
 
 	def add_model_regularizer_loss(self, model):

@@ -1,0 +1,12 @@
+# emacs
+*~
+
+# mac
+*DS_Store
+
+# Python
+__pycache__
+*.egg-info
+
+# PI3NN
+Results_PI3NN/*.txt

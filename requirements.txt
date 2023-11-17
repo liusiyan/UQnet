@@ -1,0 +1,6 @@
+tensorflow>=2.0
+hyperopt==0.2.5
+matplotlib
+pandas
+sklearn
+tqdm

@@ -1,7 +1,8 @@
 ''' Functions for plotting '''
 import os
 import matplotlib
-matplotlib.use("TkAgg")
+# matplotlib.use("TkAgg")
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 # matplotlib.rcParams['text.usetex'] = True
 import numpy as np

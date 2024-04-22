@@ -6,6 +6,68 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
+class CL_BaseDataLoader:
+    def __init__(self, config):
+        self.config = config
+        self.data = None
+
+    def load_data(self):
+        raise NotImplementedError
+    
+    def preprocess_data(self):
+        if 'preprocessing' in self.config:
+            for process in self.config['preprocessing']:
+                if process['type'] == 'normalize':
+                    self.data = self.normalize_data(self.data, process['columns'])
+                elif process['type'] == 'standardize':
+                    self.data = self.standardize_data(self.data, process['columns'])
+                else:
+                    raise ValueError('Unknown preprocessing method, please double check!!!')
+    
+    def get_data(self):
+        if self.data is None:
+            self.load_data()
+            self.preprocess_data()
+        return self.data
+    
+
+
+
+
+### test dataloader for Boston housing dataset
+### User definition of how the data should be loaded and preprocessed
+class CL_BostonDataLoader(CL_BaseDataLoader):
+    def __init__(self, config):
+        super(CL_BostonDataLoader, self).__init__(config)
+    
+    def load_data(self):
+        self.data = pd.read_csv(self.config['data_path'])
+    
+    def preprocess_data(self):
+        pass
+
+    # def normalize_data(self, data, columns):
+    #     data[columns] = MinMaxScaler().fit_transform(data[columns])
+    #     return data
+    
+    def standardize_data(self, data, columns):
+        data[columns] = StandardScaler().fit_transform(data[columns])
+        return data
+    
+class CL_CSVDataLoader(CL_BaseDataLoader):
+    def __init__(self, config):
+        super(CL_CSVDataLoader, self).__init__(config)
+    
+    def load_data(self):
+        self.data = pd.read_csv(self.config['data_path'])
+    
+    def preprocess_data(self):
+        pass
+
+
+
+
+
 class CL_dataLoader:
     def __init__(self, original_data_path=None, configs=None):
         # current_dir = os.path.dirname(__file__)

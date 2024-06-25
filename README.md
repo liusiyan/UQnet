@@ -13,7 +13,7 @@ Top panels of figure below illustrate the four steps of the PI3NN algorithm. Aft
 <p align="center"><img src="docs/images/PI3NN_main_illustration.png" width=800 /></p>
 
 <p align="left">
-Top panels illustrate the four steps of our PI3NN algorithm. Bottom panels illustrate the effectiveness of the OOD identification feature. As shown in bottom left, when turning on the OOD identification feature by initializing the bias of the output layer of <img src="https://render.githubusercontent.com/render/math?math=u_\theta"> and <img src="https://render.githubusercontent.com/render/math?math=l_\xi"> to a large value, PI3NN can accurately identify the OOD regions <img src="https://render.githubusercontent.com/render/math?math=[-7,-4]\cup[4,7]">  by giving them increasingly large PIs as their distance from the training data gets large.In bottom right, if we turn off the OOD identification by using the default initialization, PI3NN will not identify the OOD regions by giving them a narrow uncertainty bound.
+Top panels illustrate the four steps of our PI3NN algorithm. Bottom panels illustrate the effectiveness of the OOD identification feature. As shown in bottom left, when turning on the OOD identification feature by initializing the bias of the output layer of $u_\theta$ and $l_\xi$ to a large value, PI3NN can accurately identify the OOD regions $[-7,-4]\cup[4,7]$ by giving them increasingly large PIs as their distance from the training data gets large.In bottom right, if we turn off the OOD identification by using the default initialization, PI3NN will not identify the OOD regions by giving them a narrow uncertainty bound.
 </p><br/>
 
 

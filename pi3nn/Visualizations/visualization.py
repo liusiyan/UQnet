@@ -1,6 +1,6 @@
 ''' Functions for plotting '''
 import matplotlib
-matplotlib.use("TkAgg")
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 # print(plt.get_backend())
